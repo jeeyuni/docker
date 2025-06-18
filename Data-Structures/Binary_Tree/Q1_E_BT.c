@@ -117,10 +117,36 @@ int identical(BTNode *tree1, BTNode *tree2)
 
 {
    /* add your code here */
+   // 둘다 NULL이면 같음
+    if (tree1 == NULL && tree2 == NULL)
+    {
+        return 1;
+    }
+    // 하나만 NULL이면 같지 않음
+    if (tree1 == NULL || tree2 == NULL)
+    {
+        return 0;
+    }
+    // 노드 값이 다르면 같지 않음
+    if (tree1->item != tree2->item)
+    {
+        return 0;
+    }
+    //왼쪽도 같고 오른쪽도 같다면 같은 트리이다
+    if (identical(tree1->left, tree2->left) && identical(tree1->right, tree2->right))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////////
 
+// 사용법: 트리를 만들 루트 노드를 받는다
+// 결과: 루트 노드를 받아서 왼쪽과 오른쪽을 NULL 노드로 생성해준다
 BTNode *createBTNode(int item){
     BTNode *newNode = malloc(sizeof(BTNode));
     newNode->item = item;
@@ -131,7 +157,8 @@ BTNode *createBTNode(int item){
 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+// 트리를 만든다
+// 스택에 루트노드를 팝하고 자식 두개를 집어넣는것을 NULL일때까지 반복한다
 BTNode *createTree()
 {
     Stack stk;
@@ -186,6 +213,8 @@ BTNode *createTree()
     return root;
 }
 
+// 사용법: 스택과 노드를 받는다
+// 결과: 스택 맨 위에 push한다
 void push( Stack *stk, BTNode *node){
     StackNode *temp;
 
@@ -203,6 +232,8 @@ void push( Stack *stk, BTNode *node){
     }
 }
 
+// 사용법: 스택을 받는다
+// 결과: 스택의 제일 마지막에있는 노드를 팝한다.
 BTNode* pop(Stack *stk){
    StackNode *temp, *top;
    BTNode *ptr;

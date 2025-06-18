@@ -98,6 +98,18 @@ int maxHeight(BTNode *node)
 
 {
     /* add your code here */
+    if (node == NULL) {
+        return -1;
+    }
+
+    int leftH = maxHeight(node -> left);
+    int rightH = maxHeight(node-> right);
+
+    if (leftH > rightH) {
+        return leftH + 1;
+    } else {
+        return rightH + 1;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -209,6 +221,12 @@ void printTree(BTNode *node){
     printTree(node->right);
 }
 
+//사용법: 노드를 받는다
+//결과: 왼쪽과 
+
+// 노드를 가리키는 포인터의 주소를 받는다: 함수 안에서 호출한 포인터의 최종값을 변경해서 최종적으로 root변수가 NULL이 되도록 한다.
+// 왼쪽노드와 오른쪽 노드 역시 재귀 호출을 이용해 제거한다 
+// 이후에 현재 노드를 (*node)를 free()로 해제하고 NULL로 지정
 void removeAll(BTNode **node){
     if(*node != NULL){
         removeAll(&((*node)->left));
