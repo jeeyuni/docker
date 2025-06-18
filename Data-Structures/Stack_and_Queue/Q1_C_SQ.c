@@ -117,19 +117,48 @@ int main()
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
 	/* add your code here */
+	ListNode *cur;
+
+	// 큐 지우기
+	removeAllItemsFromQueue(q);
+
+	// 리스트의 맨 처음 아이템을 가리킨다
+	cur = ll->head;
+
+	// 리스트에 마지막에 도달할때 까지 
+	while (cur != NULL)
+	{
+		enqueue(q, cur->item);
+		cur = cur->next;
+	}
 }
 
 void removeOddValues(Queue *q)
 {
 	/* add your code here */
+	int size = q->ll.size;
+	int i = 0;
+
+	while (i < size){
+		int num = dequeue(q);
+		if (num % 2 == 0)
+		{
+			enqueue(q, num);
+		}
+		i++;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// 사용법: 큐와 enqueue하고자가하는 아이템을 받는다.
+// 결과: 큐에 아이템이 들어간다.
 void enqueue(Queue *q, int item) {
 	insertNode(&(q->ll), q->ll.size, item);
 }
 
+// 사용법: 큐를 받는다.
+// 결과: 큐에서 제일 앞에 노드를 지우고 뭐였는지 반환한다.
 int dequeue(Queue *q) {
 	int item;
 

@@ -104,6 +104,21 @@ int main()
 int isStackPairwiseConsecutive(Stack *s)
 {
   /* add your code here */
+  if (s == NULL || isEmptyStack(s))
+        return 0;
+
+    if (s->ll.size % 2 == 1)
+        return 0;
+
+    while (!isEmptyStack(s)) {
+        int first  = pop(s);
+        int second = pop(s);
+
+        int diff = first - second;
+        if (abs(diff) != 1)
+            return 0;
+    }
+    return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -122,6 +137,8 @@ int pop(Stack *s){
     return INT_MIN;
 }
 
+// 사용법: 스택을 받는다
+// 결과: 제일 뒤에 넣은 아이템이 뭔지 확인한다
 int peek(Stack *s){
    return ((s->ll).head)->item;
 }

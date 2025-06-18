@@ -114,20 +114,59 @@ int main()
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
     /* add your code here */
+	ListNode *cur;
+
+	// 스택 지우기 
+	removeAllItemsFromStack(s);
+
+	// 리스트의 맨 처음 아이템을 가리킨다
+	cur = ll->head;
+
+	// 리스트에 마지막에 도달할때 까지
+	while (cur != NULL)
+	{
+		push(s, cur->item);
+		cur = cur->next;
+	}
 }
 
 void removeEvenValues(Stack *s)
 {
 	/* add your code here */
+	//tempStack이라는 다른 스택을 만든다
+	Stack tempStack;
+
+	//s 스택이 빌때까지 
+	while (!isEmptyStack(s)) {
+		// 팝한다
+		int tempValue = pop(s);
+		// 팝한 값이 짝수라면
+		if (tempValue % 2 != 0) {
+			//tempStack에 넣는다.
+			push(&tempStack, tempValue);
+		}
+	}
+
+	//tempStack이 빌때까지
+	while (!isEmptyStack(&tempStack)) {
+		//s에 tempStack값을 팝해서 넣는다.
+		int tempValue = pop(&tempStack);
+		push(s, tempValue);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 
+//사용법: 스택과 아이템을 받는다
+//결과: 제일 뒤에 노드를 삽입한다
 void push(Stack *s, int item)
 {
 	insertNode(&(s->ll), 0, item);
 }
 
+//사용법: 스택을 받는다 
+//결과: 스택에 헤드가 비어있지 않다면, 제일 늦게넣은 노드를 지우고 반환한다
+//스택이 들어오면서 제일 먼저 들어온게 맨 뒤로 밀린다!!! 그러므로 젤 앞에 있는 노드가 제일 마지막에 넣은 노드가 된다. 
 int pop(Stack *s)
 {
 	int item;
@@ -141,6 +180,8 @@ int pop(Stack *s)
 		return MIN_INT;
 }
 
+//사용법: 스택을 받는다
+//결과: 스택이 비었으면 1 아니라면 0을 반환한다
 int isEmptyStack(Stack *s)
 {
 	if ((s->ll).size == 0)
