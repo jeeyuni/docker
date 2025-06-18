@@ -104,6 +104,32 @@ int main()
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
     /* add your code here */
+	if (ll1 == NULL || ll2 == NULL || ll2->head == NULL)
+	{
+		return -1;
+	}
+
+	ListNode *cur1 = ll1->head;
+	ListNode *cur2 = ll2->head;
+	ListNode *next1, *next2;
+
+	while (cur1 != NULL && cur2 != NULL)
+	{
+		// 다음위치
+		next1 = cur1->next;
+		next2 = cur2->next;
+
+		cur1 -> next = cur2;
+		cur2 -> next = next1; 
+
+		ll1 -> size++;
+		ll2 -> size--;
+
+		cur1 = next1;
+		cur2 = next2;
+	}
+	
+	ll2 -> head = cur2;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -167,6 +193,7 @@ int insertNode(LinkedList *ll, int index, int value){
 
 	ListNode *pre, *cur;
 
+	// 리스트 자체가 비었거나, 인덱스가 리스트를 넘어가면 -1를 반환한다
 	if (ll == NULL || index < 0 || index > ll->size + 1)
 		return -1;
 

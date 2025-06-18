@@ -87,6 +87,30 @@ int main()
 void moveOddItemsToBack(LinkedList *ll)
 {
 	/* add your code here */
+	//리스트가 비었거나 존재하지 않으면 아무것도 하지 않음
+    if (ll == NULL || ll->head == NULL) return;
+
+    int i = 0;
+    int size = ll->size; 
+
+    while (i < size) {
+        ListNode *node = findNode(ll, i); // i번째 노드를 가져옴
+        if (node == NULL) return; 
+
+        if (node->item % 2 != 0) {
+            // 홀수인 경우
+            int oddValue = node->item; 
+
+			//노드를 제거하고 맨뒤로 다시 추가한다
+            removeNode(ll, i);   
+            insertNode(ll, ll->size, oddValue);
+
+            size--;  // 여기서 i를 바꾸지 않는다 
+        } else {
+            // 짝수인 경우 다음 인덱스로 넘어가서 탐색한다 
+            i++; 
+        }
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -123,7 +147,8 @@ void removeAllItems(LinkedList *ll)
 	ll->size = 0;
 }
 
-
+//사용법: 리스트와 인덱스를 받는다
+//결과: 리스트에 인덱스에 있는 값을 반환한다. 
 ListNode *findNode(LinkedList *ll, int index){
 
 	ListNode *temp;
