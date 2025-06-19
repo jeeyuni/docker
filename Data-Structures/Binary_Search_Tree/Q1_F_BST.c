@@ -95,6 +95,28 @@ void levelOrderTraversal(BSTNode* root)
 {
 
     /* add your code here */
+	//자식이 있을때만 큐에 넣어준다 
+	//큐가 비었을때가 종료조건이다. 
+	QueueNode *head = NULL, *tail = NULL;
+
+	BSTNode *popNode;
+
+	if (root == NULL) {return;}
+
+	enqueue(&head, &tail, root);
+
+	while (head != NULL) {
+		popNode = dequeue(&head, &tail);
+		printf("%d ", popNode -> item);
+
+		if (popNode -> left != NULL) {
+			enqueue(&head, &tail, popNode -> left);
+		}
+		if(popNode -> right != NULL) {
+			enqueue(&head, &tail, popNode -> right);
+		}
+	}
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////

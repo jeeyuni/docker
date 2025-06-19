@@ -90,7 +90,39 @@ int main()
 
 void inOrderTraversal(BSTNode *root)
 {
-	 /* add your code here */
+	 /* 문제 접근 방식:
+	 루트 노드에서 왼쪽 자식을 끝까지 내려가며 스택에 쌓고, 왼쪽이 끝나면 스택에서 pop을 하여 방문한다.
+	 그다음 오른쪽 자식으로 이동한다.
+	 스택을 이용하기 때문에 가장 왼쪽에 있는 노드 부터 방문한다.
+	 */
+
+	 //스택을 생성한다
+	 Stack stk;
+	 stk.top = NULL; // 스택을 초기화 한다
+	 
+	//현재 탐색을 할 포인터를 만들어주고, 지금은 root로 지정한다.
+	 BSTNode *cur = root; 
+
+	/*외부에 있는 이 while문은 순회 전체 반복을 위한 루프이다. 
+	cur 포인터가 NULL을 가리키거나, 스택이 비었다면 중지한다.
+	즉 트리 전체를 모두 방문할때 까지 반복. */
+	 while (cur != NULL || !isEmpty(&stk)) {
+		/*내부에 있는 이번 while문은 현재 노드의 왼쪽 자식이 존재하는 한 계속 왼쪽으로 내려가며
+		지나가는 노드를 스택에 쌓아두게 되고 가장 마지막에 저장된 제일 왼쪽에 있는 노드가
+		먼저 pop되게 된다. 
+		*/
+		while (cur != NULL) {
+			push(&stk, cur); 
+			cur = cur -> left; // cur이 NULL을 가리킬때까지 왼쪽으로 이동
+		}
+
+		//왼쪽 끝에 가게 됐다면 while에서 나오게 되고, 가장 최근에 저장 된 노드를 pop하고 그 루트를 cur로 갱신. 
+		cur = pop(&stk); 
+		printf("%d " , cur->item);
+
+		//오른쪽 자식이 있다면 오른쪽 자식으로 설정하고 이동.
+		cur = cur-> right;
+	 }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -123,6 +155,7 @@ void insertBSTNode(BSTNode **node, int value){
 
 //////////////////////////////////////////////////////////////////////////////////
 
+//사용법: 스택과 푸시할 노드를 받는다
 void push(Stack *stack, BSTNode * node)
 {
 	StackNode *temp;

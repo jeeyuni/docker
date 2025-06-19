@@ -96,9 +96,14 @@ void postOrderIterativeS2(BSTNode *root)
 
 /* Given a binary search tree and a key, this function
    deletes the key and returns the new root. Make recursive function. */
+//헤드를 리턴한다 
 BSTNode* removeNodeFromTree(BSTNode *root, int value)
 {
 	/* add your code here */
+	// 루트를 없앤다면 
+	//왼쪽 트리에 오른쪽 노드나
+	//어른쪽 트리에 왼쪽 노드를 가져오는게 핵심
+	//왼쪽트리는 나보다 다 작으면 되고 오른쪽트리는 나보다 다 크면 됨. 
 }
 ///////////////////////////////////////////////////////////////////////////////
 
